@@ -14,12 +14,12 @@ module.exports = function(creep, spawn)
     		creep.moveTo(Game.spawns.Spawn1);
     		Game.spawns.Spawn1.transferEnergy(creep);
     	}
-    	else if(targets.length && creep.energy != 0) 
+    	else if(targets.length && creep.energy > 0) 
     	{	
     		creep.moveTo(targets[0]);
     		creep.build(targets[0]);
     	}
-    	else if(site && !targets.length)
+    	else if(site && !targets.length && creep.energy > 0)
     	{
     	    creep.moveTo(site);
     		creep.upgradeController(site);
@@ -31,6 +31,14 @@ module.exports = function(creep, spawn)
     }
     else
     {
-        creep.moveTo(Game.flags.BuilderFlag);
+        if(creep.energy > 0)
+        {
+            creep.moveTo(Game.spawns.Spawn1);
+    		creep.transferEnergy(Game.spawns.Spawn1);
+        }
+        else
+        {
+            creep.moveTo(Game.flags.BuilderFlag);
+        }
     }
 }

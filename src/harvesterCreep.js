@@ -13,7 +13,7 @@ module.exports = function(creep, spawn)
 	    }
     });
     
-    if(creep.energy != 0 && creep.pos.inRangeTo(structure, 15))
+    if(creep.energy > 0 && creep.pos.inRangeTo(structure, 5))
     {
         creep.moveTo(structure);
         creep.transferEnergy(structure);
