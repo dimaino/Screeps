@@ -1,5 +1,5 @@
 var distributor = require('distributor');
-var flagCreator = require('flagCreator');
+//var flagCreator = require('flagCreator');
 var deathHandler = require('deathHandler');
 var lodash = require('lodash');
 
@@ -8,7 +8,7 @@ var count = lodash.filter(Game.creeps, function(creep){ return creep.ticksToLive
 var spawn = Game.spawns.Spawn1;
 var creeps = Game.creeps;
 
-var flagCreator = flagCreator();
+//var flagCreator = flagCreator();
 
 
 
