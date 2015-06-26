@@ -2,7 +2,7 @@ module.exports = function(creep, spawn)
 {
     var target = creep.pos.findClosest(FIND_DROPPED_ENERGY);
     
-    if(target && creep.energy < creep.energyCapacity && creep.getActiveBodyparts(CARRY) == 1)
+    if(target && creep.energy < creep.energyCapacity && creep.getActiveBodyparts(CARRY) != 0)
     {
         creep.moveTo(target);
         creep.pickup(target);

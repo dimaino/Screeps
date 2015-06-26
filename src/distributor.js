@@ -6,6 +6,8 @@ module.exports = function(creeps, spawn)
     var finder = require('finderCreep');
     var healer = require('healerCreep');
     var repairer = require('repairerCreep');
+    var roadCreep = require('roadCreep');
+    var explorer = require('explorerCreep');
     
     var lodash = require('lodash');
 
@@ -25,17 +27,18 @@ module.exports = function(creeps, spawn)
     var finders = [];
     var healers = [];
     var repairers = [];
-    
+    var roadCreeps = [];
+    var explorers = [];
 
 
 
-for(var room in Memory.rooms)
-{
-    room = Game.rooms[room];
-    var totalEnergy = calculateRoomEnergy(room);
-    room.memory.totalEnergy = totalEnergy;
-}
-    
+//for(var room in Memory.rooms)
+//{
+ //   room = Game.rooms[room];
+ //   var totalEnergy = calculateRoomEnergy(room);
+ //   room.memory.totalEnergy = totalEnergy;
+//}
+  var totalEnergy;  
     for(var i in creeps)
     {
         if(creeps[i].memory.role == 'harvester')
@@ -61,6 +64,14 @@ for(var room in Memory.rooms)
         if(creeps[i].memory.role == 'repairer')
         {
             repairers.push(creeps[i]);
+        }
+        if(creeps[i].memory.role == 'roadCreep')
+        {
+            roadCreeps.push(creeps[i]);
+        }
+        if(creeps[i].memory.role == 'explorer')
+        {
+            explorers.push(creeps[i]);
         }
     }
     
@@ -100,6 +111,14 @@ for(var room in Memory.rooms)
     {
         spawn.createCreep([WORK, WORK, WORK, WORK, CARRY, CARRY, MOVE], null, {role: 'repairer'});
     }
+    else if(roadCreeps.length < 2)
+    {
+        spawn.createCreep([WORK, CARRY, MOVE, MOVE, MOVE], null, {role: 'roadCreep'});
+    }
+    else if(explorers.length < 1)
+    {
+        spawn.createCreep([TOUGH, ATTACK, ATTACK, MOVE, MOVE], null, {role: 'explorer'});
+    }
     
     for (var name in creeps)
 	{
@@ -125,6 +144,12 @@ for(var room in Memory.rooms)
                 break;
             case "repairer":
                 repairer(creep, spawn);
+                break;
+            case "roadCreep":
+                roadCreep(creep, spawn);
+                break;
+            case "explorer":
+                explorer(creep, spawn);
                 break;
         }
     }

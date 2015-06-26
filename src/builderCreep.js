@@ -9,7 +9,7 @@ module.exports = function(creep, spawn)
     console.log('there are: ' + count + ' harvesters alive');
     if(count > 3)
     {
-        if(creep.energy == 0 && !Game.spawns.Spawn1.energy == 0) 
+        if(creep.energy == 0 && Game.spawns.Spawn1.energy != 0) 
     	{	
     		creep.moveTo(Game.spawns.Spawn1);
     		Game.spawns.Spawn1.transferEnergy(creep);
