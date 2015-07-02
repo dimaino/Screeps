@@ -7,7 +7,7 @@ module.exports = function(creep, spawn)
     var site = creep.room.controller;
     var targets = creep.room.find(FIND_CONSTRUCTION_SITES);
     console.log('there are: ' + count + ' harvesters alive');
-    if(count > 3)
+    if(count > 2)
     {
         if(creep.energy == 0 && Game.spawns.Spawn1.energy != 0) 
     	{	

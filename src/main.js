@@ -24,5 +24,5 @@ distributor(creeps, spawn);
 console.log('Total Creeps Left: ' + count);
 
 //console.log('Calling deathHandler with '+creeps+' and '+spawn);
-//deathHandler(creeps, spawn);
+deathHandler(creeps, spawn);
 }

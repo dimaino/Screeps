@@ -8,16 +8,18 @@ module.exports = function(creeps, spawn)
     var repairer = require('repairerCreep');
     var roadCreep = require('roadCreep');
     var explorer = require('explorerCreep');
+    var harvester2 = require('harvesterCreep2');
+    var testCreep = require('testCreep');
     
     var lodash = require('lodash');
 
-    //var removes = lodash.filter(Game.creeps, function(creep){ return creep.ticksToLive < 20;}).length;
+    var removes = lodash.filter(Game.creeps, function(creep){ return creep.ticksToLive < 20;}).length;
     
-    //for(var removes in Memory.creeps)
-	//{
-    //    delete Memory.creeps[removes];
+//    for(var removes in Memory.creeps)
+//	{
+//        delete Memory.creeps[removes];
 //    }
-//    console.log(removes);
+    console.log(removes);
     
     var calculateRoomEnergy = require('calculateRoomEnergy');
     
@@ -29,7 +31,8 @@ module.exports = function(creeps, spawn)
     var repairers = [];
     var roadCreeps = [];
     var explorers = [];
-
+    var harvesters2 = [];
+    var testCreeps = [];
 
 
 //for(var room in Memory.rooms)
@@ -73,16 +76,32 @@ module.exports = function(creeps, spawn)
         {
             explorers.push(creeps[i]);
         }
+        if(creeps[i].memory.role == 'harvester2')
+        {
+            harvesters2.push(creeps[i]);
+        }
+        if(creeps[i].memory.role == 'testCreep')
+        {
+            testCreeps.push(creeps[i]);
+        }
     }
     
     if(harvesters.length < 4)
     {
         spawn.createCreep([WORK, CARRY, CARRY, MOVE, MOVE], null, {role: 'harvester'});
     }
+//    else if(harvesters2.length < 3)
+//    {
+//        spawn.createCreep([WORK, CARRY, CARRY, MOVE, MOVE], null, {role: 'harvester2'});
+//    }
     else if(builders.length < 2)
     {
         spawn.createCreep([WORK, CARRY, MOVE, MOVE, MOVE], null, {role: 'builder'});
     }
+//    else if(testCreeps.length < 4)
+//    {
+//        spawn.createCreep([WORK, CARRY, CARRY, MOVE, MOVE], null, {role: 'testCreep'});
+//    }
     else if(harvesters.length < 6 && totalEnergy >= 550)
     {
         spawn.createCreep([WORK, WORK, WORK, CARRY, CARRY, MOVE, MOVE, MOVE], null, {role: 'harvester'});
@@ -95,38 +114,30 @@ module.exports = function(creeps, spawn)
 //    {
 //        spawn.createCreep([TOUGH, TOUGH, TOUGH, TOUGH, ATTACK, ATTACK, MOVE, MOVE], null, {role: 'guard'});
 //    }
-    else if(finders.length < 1)
-    {
-        spawn.createCreep([CARRY, CARRY, MOVE, MOVE, MOVE, MOVE], null, {role: 'finder'});
-    }
+//    else if(finders.length < 0)
+//    {
+//        spawn.createCreep([CARRY, CARRY, MOVE, MOVE, MOVE, MOVE], null, {role: 'finder'});
+//    }
 //    if(healers.length < 1)
 //    {
 //        spawn.createCreep([HEAL, MOVE, MOVE], null, {role: 'healer'});
 //    }
-    else if(repairers.length < 1)
-    {
-        spawn.createCreep([WORK, CARRY, MOVE, MOVE, MOVE], null, {role: 'repairer'});
-    }
-    else if(repairers.length < 2 && totalEnergy >= 550)
-    {
-        spawn.createCreep([WORK, WORK, WORK, WORK, CARRY, CARRY, MOVE], null, {role: 'repairer'});
-    }
-    else if(roadCreeps.length < 2)
-    {
-        spawn.createCreep([WORK, CARRY, MOVE, MOVE, MOVE], null, {role: 'roadCreep'});
-    }
-    else if(explorers.length < 1)
-    {
-        spawn.createCreep([TOUGH, ATTACK, ATTACK, MOVE, MOVE], null, {role: 'explorer'});
-    }
-    else if(explorers.length < 3 && totalEnergy >= 800)
-    {
-        spawn.createCreep([ATTACK, ATTACK, TOUGH, TOUGH, TOUGH, TOUGH, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE], null, {role: 'explorer'});
-    }
-    else if(builders.length < 6 && totalEnergy >= 800)
-    {
-        spawn.createCreep([WORK, WORK, WORK, WORK, WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE], null, {role: 'explorer'});
-    }
+//    else if(repairers.length < 0)
+//    {
+//        spawn.createCreep([WORK, CARRY, MOVE, MOVE, MOVE], null, {role: 'repairer'});
+//    }
+//    else if(repairers.length < 2 && totalEnergy >= 550)
+//    {
+//        spawn.createCreep([WORK, WORK, WORK, WORK, CARRY, CARRY, MOVE], null, {role: 'repairer'});
+//    }
+//    else if(roadCreeps.length < 0)
+//    {
+//        spawn.createCreep([WORK, CARRY, MOVE, MOVE, MOVE], null, {role: 'roadCreep'});
+//    }
+//    else if(explorers.length < 1)
+//    {
+//        spawn.createCreep([TOUGH, ATTACK, ATTACK, MOVE, MOVE], null, {role: 'explorer'});
+//    }
     
     for (var name in creeps)
 	{
@@ -158,6 +169,12 @@ module.exports = function(creeps, spawn)
                 break;
             case "explorer":
                 explorer(creep, spawn);
+                break;
+            case "harvester2":
+                harvester2(creep, spawn);
+                break;
+            case "testCreep":
+                testCreep(creep, spawn);
                 break;
         }
     }

@@ -22,6 +22,7 @@ module.exports = function(creep, spawn)
 	if(creep.energy < creep.energyCapacity)// && !creep.pos.inRangeTo(extension, 5)) 
 	{
 		creep.moveTo(sources[0]);
+		//creep.moveTo(Game.spawns.Spawn1);
 		creep.harvest(sources[0]);
 	}
 	else 
